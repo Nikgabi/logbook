@@ -1,0 +1,967 @@
+<html lang="el">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Credentials Module</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link href="./css/style.css" rel="stylesheet" >
+
+<script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+
+
+</head>
+<body>
+<div class="container py-4">
+
+<div class="card shadow-sm p-4 mb-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+<div>
+<h1 class="mb-1">Medical LogBook</h1>
+<p class="text-muted mb-0">
+Ηλεκτρονικό Portfolio Ειδικευόμενου Ιατρού
+</p>
+</div>
+
+<div>
+<button class="btn btn-outline-primary" id="loginBtn">
+
+Login with Google
+
+</button>
+
+<button class="btn btn-outline-danger" id="logoutBtn">
+
+Logout
+
+</button>
+
+<div id="userBox"></div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="container py-4">
+
+<ul class="nav nav-tabs" id="mainTabs">
+
+  <li class="nav-item">
+    <button class="nav-link active"
+            data-bs-toggle="tab"
+            data-bs-target="#credentials">
+      Πτυχία
+    </button>
+  </li>
+
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#jobs">
+      Προϋπηρεσίες
+    </button>
+  </li>
+
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#publications">
+      Δημοσιεύσεις
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#conferences">
+      Συνέδρια
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#presentations">
+      Ανακοινώσεις
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#medical_proc">
+      Ιατρικές πράξεις
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#proced">
+      Χειρουργεία
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#research">
+      Έρευνα
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#awards">
+      Βραβεία
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#educat">
+      Εκπαιδευτικό έργο
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#Prostgrad_training">
+      Μετεκπαιδεύσεις
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#seminars">
+      Σεμινάρια
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#associations">
+      Εταιρείες & Σύλλογοι
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#langue_hob">
+      Ξένες γλώσσες & Χόμπι
+    </button>
+  </li>
+
+</ul>
+
+<div class="tab-content">
+
+<div
+    class="tab-pane fade show active"
+    id="credentials">
+
+     <!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+<div class="row">
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="formCard" style="display:none;">
+
+<h3 class="section-title mb-4">
+Νέα Καταχώρηση
+</h3>
+
+<div class="mb-3">
+<label class="form-label">
+Είδος Πιστοποίησης
+</label>
+
+<select
+id="credentialType"
+class="form-select">
+
+<option>Πτυχίο</option>
+<option>Μεταπτυχιακό</option>
+<option>Διδακτορικό</option>
+<option>Ειδικότητα</option>
+<option>Εξειδίκευση</option>
+<option>Πιστοποίηση</option>
+<option>Αγροτικό</option>
+<option>Άδεια Άσκησης</option>
+<option>Άλλο</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Τίτλος
+</label>
+
+<input
+id="title"
+type="text"
+class="form-control"
+placeholder="π.χ. APLS Provider">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Φορέας
+</label>
+
+<input
+id="issuer"
+type="text"
+class="form-control"
+placeholder="π.χ. ERC / ΕΚΠΑ">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία
+</label>
+
+<input
+id="issueDate"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία Λήξης (προαιρετικό)
+</label>
+
+<input
+id="expirationDate"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Αρχείο PDF / JPEG
+</label>
+
+<input
+id="attachment"
+type="file"
+class="form-control"
+accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Περισσότερες Πληροφορίες
+</label>
+
+<textarea
+id="notes"
+class="form-control"
+rows="4"
+placeholder="Σχόλια, διάρκεια ισχύος, περιγραφή..."></textarea>
+</div>
+
+<div class="d-grid gap-2">
+
+<button
+id="saveCredentials"
+class="btn btn-primary btn-lg">
+Αποθήκευση
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+  
+  <!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+
+<div class="card shadow-sm p-4" >
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+
+<h3 class="section-title mb-0">
+Καταχωρήσεις
+</h3>
+
+<input
+id="searchInput"
+class="form-control w-auto"
+placeholder="Αναζήτηση..."
+onkeyup="loadCredentials()">
+
+</div>
+
+<div id="credentialsList"></div>
+
+</div>
+</div>
+</div>
+</div>
+
+ <div
+    class="tab-pane fade"
+    id="jobs">
+	<div class="row">
+
+		<div class="col-lg-5">
+
+		<div class="card shadow-sm p-4" id="jobForm" style="display:none;">
+
+		<h3>Νέα Προϋπηρεσία</h3>
+
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Από
+
+		</label>
+
+		<input
+		id="jobStartDate"
+		type="date"
+		class="form-control">
+
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Έως
+
+		</label>
+
+		<input
+		id="jobEndDate"
+		type="date"
+		class="form-control">
+
+		</div>
+		<div class="form-check mb-3">
+
+		<input
+		class="form-check-input"
+		type="checkbox"
+		id="currentJob">
+
+		<label
+		class="form-check-label">
+
+		Εργάζομαι ακόμα εδώ
+
+		</label>
+
+		</div>
+		<div class="mb-3">
+		<select
+		id="organizationType"
+		class="form-select">
+		<option>Νοσοκομείο</option>
+
+		<option>Πανεπιστημιακό Νοσοκομείο</option>
+
+		<option>Αγροτικό Ιατρείο</option>
+
+		<option>Κέντρο Υγείας</option>
+
+		<option>Ιδιωτικό Νοσοκομείο</option>
+
+		<option>Ιδιωτικό Ιατρείο</option>
+
+		<option>Ιδιωτικό Εργαστήριο</option>
+
+		<option>Ιατρικό Διαγνωστικό Κέντρο</option>
+
+		<option>Νοσοκομείο Εξωτερικού</option>
+
+		<option>Άλλο</option>
+		</select>
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Περιγραφή φορέα
+
+		</label>
+		<input
+		id="organizationName"
+		type="text"
+		class="form-control"
+		placeholder="π.χ. ΓΝΑ Γεννηματάς">
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Τμήμα
+
+		</label>
+		<input
+		id="department"
+		type="text"
+		class="form-control"
+		placeholder="π.χ. Καρδιολογική Κλινική">
+		</div>
+		<div class="mb-3">
+		<label class="form-label">
+
+		Βαθμός
+
+		</label>
+		<select
+		id="jobGrade"
+		class="form-select">
+		<option>Αγροτικός</option>
+
+		<option>Ειδικευόμενος</option>
+
+		<option>Εξειδικευόμενος</option>
+
+		<option>Σε Παράταση Ειδικότητας</option>
+
+		<option>Ειδικευμένος σε Παράταση</option>
+
+		<option>Πανεπιστημιακός Υπότροφος</option>
+
+		<option>Επιμελητής Β</option>
+
+		<option>Επιμελητής Α</option>
+
+		<option>Διευθυντής</option>
+
+		<option>Επίκουρος Καθηγητής</option>
+
+		<option>Αναπληρωτής Καθηγητής</option>
+
+		<option>Καθηγητής</option>
+
+		<option>Με Μπλοκάκι</option>
+
+		<option>Άλλο</option>
+		</select>
+		</div>
+		<div class="mb-3">
+		<label class="form-label">
+
+		Βεβαίωση
+
+		</label>
+		<input
+		id="jobAttachment"
+		type="file"
+		class="form-control"
+		accept=".pdf,.jpg,.jpeg,.png">
+		<button
+		id="saveJobBtn"
+		class="btn btn-success">
+
+		Αποθήκευση
+
+		</button>
+		</div>
+		</div>
+		</div>
+		<div class="col-lg-7">
+		<div class="card shadow-sm p-4">
+
+			<h3>
+
+			Προϋπηρεσίες
+
+			</h3>
+
+			<div id="jobsList"></div>
+
+		</div>
+  </div>
+  </div>
+  </div>
+  
+ <div
+    class="tab-pane fade show active"
+    id="publications">
+
+     <!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+<div class="row">
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="formPublications" style="display:none;">
+
+<h3 class="section-title mb-4">
+Νέα Δημοσίευση
+</h3>
+
+<div class="mb-3">
+<label class="form-label">
+Είδος Δημοσίευσης
+</label>
+
+<select
+id="publicationType"
+class="form-select">
+
+<option>Σε Περιοδικό Διεθνές</option>
+<option>Σε Ελληνικό Περιοδικό</option>
+<option>Σε online περιοδικό</option>
+<option>Άλλο</option>
+<!--<option>Εξειδίκευση</option>
+<option>Πιστοποίηση</option>
+<option>Αγροτικό</option>
+<option>Άδεια Άσκησης</option>
+<option>Άλλο</option>-->
+
+</select>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Τίτλος Περιοδικού
+</label>
+
+<input
+id="titlePub"
+type="text"
+class="form-control"
+placeholder="π.χ. BMJ">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Τίτλος άρθρου
+</label>
+
+<input
+id="paper"
+type="text"
+class="form-control"
+placeholder="Ο ρόλος της ....">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Συγγραφείς
+</label>
+
+<input
+id="authors"
+type="text"
+class="form-control"
+placeholder="A. Papas ....">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία αποστολής
+</label>
+
+<input
+id="firstDate"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία δημοσίευσης
+</label>
+
+<input
+id="public_Date"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Αρχείο PDF / JPEG
+</label>
+
+<input
+id="Public_attachment"
+type="file"
+class="form-control"
+accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Περισσότερες Πληροφορίες
+</label>
+
+<textarea
+id="notes_publ"
+class="form-control"
+rows="4"
+placeholder="Σχόλια, περιγραφή του άρθρου...."></textarea>
+</div>
+
+<div class="d-grid gap-2">
+
+<button
+id="savePublications"
+class="btn btn-primary btn-lg">
+Αποθήκευση άρθρου
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+  
+  <!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+
+<div class="card shadow-sm p-4" >
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+
+	<h3 class="section-title mb-0">
+	Δημοσιεύσεις
+	</h3>
+
+	<input
+	id="searchInputPub"
+	class="form-control w-auto"
+	placeholder="Αναζήτηση..."
+	onkeyup="loadPublications()">
+
+	</div>
+
+	<div id="publicationsList"></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="tab-pane fade" id="conferences">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="conferenceForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέο Συνέδριο</h3>
+
+<!-- Τίτλος -->
+<div class="mb-3">
+<label class="form-label">Τίτλος Συνεδρίου</label>
+<input id="confTitle" type="text" class="form-control" placeholder="π.χ. 14ο Πανελλήνιο Καρδιολογικό Συνέδριο">
+</div>
+
+<!-- Επιστημονική Εταιρεία -->
+<div class="mb-3">
+<label class="form-label">Επιστημονική Εταιρεία</label>
+<input id="confSociety" type="text" class="form-control" placeholder="π.χ. Ελληνική Καρδιολογική Εταιρεία">
+</div>
+
+<!-- Τόπος / Χώρα -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Τόπος</label>
+<input id="confCity" type="text" class="form-control" placeholder="π.χ. Αθήνα">
+</div>
+<div class="col">
+<label class="form-label">Χώρα</label>
+<select id="confCountry" class="form-select">
+<option value="" disabled selected>Επιλέξτε</option>
+<option>Ελλάδα</option>
+<option>Κύπρος</option>
+<option>Αυστρία</option>
+<option>Βέλγιο</option>
+<option>Γαλλία</option>
+<option>Γερμανία</option>
+<option>Ισπανία</option>
+<option>Ιταλία</option>
+<option>Ολλανδία</option>
+<option>Πορτογαλία</option>
+<option>Σουηδία</option>
+<option>Ηνωμένο Βασίλειο</option>
+<option>ΗΠΑ</option>
+<option>Άλλη</option>
+</select>
+</div>
+</div>
+
+<!-- Ημερομηνίες -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="confDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="confDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<!-- Πιστοποιητικό -->
+<div class="mb-3">
+<label class="form-label">Επισύναψη πιστοποιητικού</label>
+<input id="confAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<hr>
+<h5 class="mb-3">Τύπος Συμμετοχής</h5>
+
+<!-- Παρακολούθηση -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkWatch">
+<label class="form-check-label" for="chkWatch">Παρακολούθηση</label>
+</div>
+</div>
+
+<!-- Οργανωτική Επιτροπή -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkOrg" onchange="toggleConfSection('secOrg', this)">
+<label class="form-check-label" for="chkOrg">Συμμετοχή στην Οργανωτική Επιτροπή</label>
+</div>
+<div id="secOrg" class="conf-section mt-2 ps-3" style="display:none;">
+<select id="orgRole" class="form-select form-select-sm">
+<option value="" disabled selected>Ρόλος</option>
+<option>Πρόεδρος Οργανωτικής Επιτροπής</option>
+<option>Αντιπρόεδρος</option>
+<option>Γενικός Γραμματέας</option>
+<option>Ταμίας</option>
+<option>Μέλος</option>
+<option>Άλλο</option>
+</select>
+</div>
+</div>
+
+<!-- Επιστημονική Επιτροπή -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkSci" onchange="toggleConfSection('secSci', this)">
+<label class="form-check-label" for="chkSci">Συμμετοχή στην Επιστημονική Επιτροπή</label>
+</div>
+<div id="secSci" class="conf-section mt-2 ps-3" style="display:none;">
+<select id="sciRole" class="form-select form-select-sm">
+<option value="" disabled selected>Ρόλος</option>
+<option>Πρόεδρος</option>
+<option>Αντιπρόεδρος</option>
+<option>Συντονιστής</option>
+<option>Μέλος</option>
+<option>Άλλο</option>
+</select>
+</div>
+</div>
+
+<!-- Προεδρείο (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkChair" onchange="toggleConfSection('secChair', this)">
+<label class="form-check-label" for="chkChair">Προεδρείο</label>
+</div>
+<div id="secChair" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesChair">
+<div class="conf-entry input-group input-group-sm mb-2">
+<span class="input-group-text">Session</span>
+<input type="text" class="form-control" placeholder="Τίτλος session">
+<button type="button" class="btn btn-outline-danger btn-sm" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesChair','chair')">+ Προσθήκη Session</button>
+</div>
+</div>
+
+<!-- Στρογγυλή Τράπεζα (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkRound" onchange="toggleConfSection('secRound', this)">
+<label class="form-check-label" for="chkRound">Στρογγυλή Τράπεζα</label>
+</div>
+<div id="secRound" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesRound">
+<div class="conf-entry mb-2">
+<input type="text" class="form-control form-control-sm mb-1" placeholder="Τίτλος στρογγυλής τράπεζας" data-field="title">
+<div class="input-group input-group-sm">
+<input type="text" class="form-control" placeholder="Συμμετέχοντες" data-field="participants">
+<button type="button" class="btn btn-outline-danger" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesRound','round')">+ Προσθήκη Στρογγυλής Τράπεζας</button>
+</div>
+</div>
+
+<!-- Εναρκτήρια Ομιλία (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkOpening" onchange="toggleConfSection('secOpening', this)">
+<label class="form-check-label" for="chkOpening">Εναρκτήρια Ομιλία</label>
+</div>
+<div id="secOpening" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesOpening">
+<div class="conf-entry input-group input-group-sm mb-2">
+<input type="text" class="form-control" placeholder="Τίτλος ομιλίας">
+<button type="button" class="btn btn-outline-danger" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesOpening','opening')">+ Προσθήκη Ομιλίας</button>
+</div>
+</div>
+
+<!-- Διάλεξη (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkLecture" onchange="toggleConfSection('secLecture', this)">
+<label class="form-check-label" for="chkLecture">Διάλεξη</label>
+</div>
+<div id="secLecture" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesLecture">
+<div class="conf-entry input-group input-group-sm mb-2">
+<input type="text" class="form-control" placeholder="Τίτλος διάλεξης">
+<button type="button" class="btn btn-outline-danger" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesLecture','lecture')">+ Προσθήκη Διάλεξης</button>
+</div>
+</div>
+
+<!-- Ελεύθερη Ανακοίνωση (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkAnnounce" onchange="toggleConfSection('secAnnounce', this)">
+<label class="form-check-label" for="chkAnnounce">Ελεύθερη Ανακοίνωση</label>
+</div>
+<div id="secAnnounce" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesAnnounce">
+<div class="conf-entry mb-2">
+<input type="text" class="form-control form-control-sm mb-1" placeholder="Τίτλος ανακοίνωσης" data-field="title">
+<div class="input-group input-group-sm">
+<input type="text" class="form-control" placeholder="Ονόματα συγγραφέων" data-field="authors">
+<button type="button" class="btn btn-outline-danger" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesAnnounce','announce')">+ Προσθήκη Ανακοίνωσης</button>
+</div>
+</div>
+
+<!-- Poster (πολλαπλά) -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkPoster" onchange="toggleConfSection('secPoster', this)">
+<label class="form-check-label" for="chkPoster">Poster</label>
+</div>
+<div id="secPoster" class="conf-section mt-2 ps-3" style="display:none;">
+<div id="entriesPoster">
+<div class="conf-entry mb-2">
+<input type="text" class="form-control form-control-sm mb-1" placeholder="Τίτλος poster" data-field="title">
+<div class="input-group input-group-sm">
+<input type="text" class="form-control" placeholder="Ονόματα συγγραφέων" data-field="authors">
+<button type="button" class="btn btn-outline-danger" onclick="removeConfEntry(this)">✕</button>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-outline-primary btn-sm w-100 mt-1" onclick="addConfEntry('entriesPoster','poster')">+ Προσθήκη Poster</button>
+</div>
+</div>
+
+<!-- Workshop -->
+<div class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkWorkshop" onchange="toggleConfSection('secWorkshop', this)">
+<label class="form-check-label" for="chkWorkshop">Workshop</label>
+</div>
+<div id="secWorkshop" class="conf-section mt-2 ps-3" style="display:none;">
+<input id="workshopTitle" type="text" class="form-control form-control-sm" placeholder="Τίτλος workshop">
+</div>
+</div>
+
+<!-- Εκπαιδευτής -->
+<div class="mb-3">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="chkTrainer" onchange="toggleConfSection('secTrainer', this)">
+<label class="form-check-label" for="chkTrainer">Εκπαιδευτής</label>
+</div>
+<div id="secTrainer" class="conf-section mt-2 ps-3" style="display:none;">
+<input id="trainerTopic" type="text" class="form-control form-control-sm" placeholder="Θέμα εκπαίδευσης">
+</div>
+</div>
+
+<!-- Παρατηρήσεις -->
+<div class="mb-3">
+<label class="form-label">Παρατηρήσεις</label>
+<textarea id="confRemarks" class="form-control" rows="3" placeholder="Προαιρετικές παρατηρήσεις..."></textarea>
+</div>
+
+<div class="d-grid">
+<button id="saveConferenceBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Καταχωρήσεις</h3>
+<input id="confSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="conferencesList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
