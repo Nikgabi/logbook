@@ -1,0 +1,179 @@
+ <div
+    class="tab-pane fade"
+    id="jobs">
+	<div class="row">
+
+		<div class="col-lg-5">
+
+		<div class="card shadow-sm p-4" id="jobForm" style="display:none;">
+
+		<h3>Νέα Προϋπηρεσία</h3>
+
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Από
+
+		</label>
+
+		<input
+		id="jobStartDate"
+		type="date"
+		class="form-control">
+
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Έως
+
+		</label>
+
+		<input
+		id="jobEndDate"
+		type="date"
+		class="form-control">
+
+		</div>
+		<div class="form-check mb-3">
+
+		<input
+		class="form-check-input"
+		type="checkbox"
+		id="currentJob">
+
+		<label
+		class="form-check-label">
+
+		Εργάζομαι ακόμα εδώ
+
+		</label>
+
+		</div>
+		<div class="mb-3">
+		<select
+		id="organizationType"
+		class="form-select">
+		<option>Νοσοκομείο</option>
+
+		<option>Πανεπιστημιακό Νοσοκομείο</option>
+
+		<option>Αγροτικό Ιατρείο</option>
+
+		<option>Κέντρο Υγείας</option>
+
+		<option>Ιδιωτικό Νοσοκομείο</option>
+
+		<option>Ιδιωτικό Ιατρείο</option>
+
+		<option>Ιδιωτικό Εργαστήριο</option>
+
+		<option>Ιατρικό Διαγνωστικό Κέντρο</option>
+
+		<option>Νοσοκομείο Εξωτερικού</option>
+
+		<option>Άλλο</option>
+		</select>
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Περιγραφή φορέα
+
+		</label>
+		<input
+		id="organizationName"
+		type="text"
+		class="form-control"
+		placeholder="π.χ. ΓΝΑ Γεννηματάς">
+		</div>
+		<div class="mb-3">
+
+		<label class="form-label">
+
+		Τμήμα
+
+		</label>
+		<input
+		id="department"
+		type="text"
+		class="form-control"
+		placeholder="π.χ. Καρδιολογική Κλινική">
+		</div>
+		<div class="mb-3">
+		<label class="form-label">
+
+		Βαθμός
+
+		</label>
+		<select
+		id="jobGrade"
+		class="form-select">
+		<option>Αγροτικός</option>
+
+		<option>Ειδικευόμενος</option>
+
+		<option>Εξειδικευόμενος</option>
+
+		<option>Σε Παράταση Ειδικότητας</option>
+
+		<option>Ειδικευμένος σε Παράταση</option>
+
+		<option>Πανεπιστημιακός Υπότροφος</option>
+
+		<option>Επιμελητής Β</option>
+
+		<option>Επιμελητής Α</option>
+
+		<option>Διευθυντής</option>
+
+		<option>Επίκουρος Καθηγητής</option>
+
+		<option>Αναπληρωτής Καθηγητής</option>
+
+		<option>Καθηγητής</option>
+
+		<option>Με Μπλοκάκι</option>
+
+		<option>Άλλο</option>
+		</select>
+		</div>
+		<div class="mb-3">
+		<label class="form-label">
+
+		Βεβαίωση
+
+		</label>
+		<input
+		id="jobAttachment"
+		type="file"
+		class="form-control"
+		accept=".pdf,.jpg,.jpeg,.png">
+		<button
+		id="saveJobBtn"
+		class="btn btn-success">
+
+		Αποθήκευση
+
+		</button>
+		</div>
+		</div>
+		</div>
+		<div class="col-lg-7">
+		<div class="card shadow-sm p-4">
+
+			<h3>
+
+			Προϋπηρεσίες
+
+			</h3>
+
+			<div id="jobsList"></div>
+
+		</div>
+  </div>
+  </div>
+  </div>

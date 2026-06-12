@@ -1,0 +1,164 @@
+<div
+    class="tab-pane fade show active"
+    id="publications">
+
+     <!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+<div class="row">
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="formPublications" style="display:none;">
+
+<h3 class="section-title mb-4">
+Νέα Δημοσίευση
+</h3>
+
+<div class="mb-3">
+<label class="form-label">
+Είδος Δημοσίευσης
+</label>
+
+<select
+id="publicationType"
+class="form-select">
+
+<option>Σε Περιοδικό Διεθνές</option>
+<option>Σε Ελληνικό Περιοδικό</option>
+<option>Σε online περιοδικό</option>
+<option>Άλλο</option>
+<!--<option>Εξειδίκευση</option>
+<option>Πιστοποίηση</option>
+<option>Αγροτικό</option>
+<option>Άδεια Άσκησης</option>
+<option>Άλλο</option>-->
+
+</select>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Τίτλος Περιοδικού
+</label>
+
+<input
+id="titlePub"
+type="text"
+class="form-control"
+placeholder="π.χ. BMJ">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Τίτλος άρθρου
+</label>
+
+<input
+id="paper"
+type="text"
+class="form-control"
+placeholder="Ο ρόλος της ....">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Συγγραφείς
+</label>
+
+<input
+id="authors"
+type="text"
+class="form-control"
+placeholder="A. Papas ....">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία αποστολής
+</label>
+
+<input
+id="firstDate"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Ημερομηνία δημοσίευσης
+</label>
+
+<input
+id="public_Date"
+type="date"
+class="form-control">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Αρχείο PDF / JPEG
+</label>
+
+<input
+id="Public_attachment"
+type="file"
+class="form-control"
+accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="mb-3">
+<label class="form-label">
+Περισσότερες Πληροφορίες
+</label>
+
+<textarea
+id="notes_publ"
+class="form-control"
+rows="4"
+placeholder="Σχόλια, περιγραφή του άρθρου...."></textarea>
+</div>
+
+<div class="d-grid gap-2">
+
+<button
+id="savePublications"
+class="btn btn-primary btn-lg">
+Αποθήκευση άρθρου
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+  
+  <!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+
+<div class="card shadow-sm p-4" >
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+
+	<h3 class="section-title mb-0">
+	Δημοσιεύσεις
+	</h3>
+
+	<input
+	id="searchInputPub"
+	class="form-control w-auto"
+	placeholder="Αναζήτηση..."
+	onkeyup="loadPublications()">
+
+	</div>
+
+	<div id="publicationsList"></div>
+
+</div>
+</div>
+</div>
+</div>
