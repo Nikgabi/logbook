@@ -1,0 +1,163 @@
+<div class="tab-pane fade" id="research">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="researchForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέο Ερευνητικό Πρόγραμμα</h3>
+
+<!-- Τίτλος -->
+<div class="mb-3">
+<label class="form-label">Τίτλος Ερευνητικού Προγράμματος</label>
+<input id="resTitle" type="text" class="form-control" placeholder="π.χ. Μελέτη επίδρασης...">
+</div>
+
+<!-- Επιστημονικό αντικείμενο -->
+<div class="mb-3">
+<label class="form-label">Επιστημονικό Αντικείμενο</label>
+<input id="resSubject" type="text" class="form-control" placeholder="π.χ. Καρδιολογία, Ογκολογία...">
+</div>
+
+<!-- Φορέας χρηματοδότησης -->
+<div class="mb-3">
+<label class="form-label">Φορέας Χρηματοδότησης</label>
+<input id="resFunding" type="text" class="form-control" placeholder="π.χ. ΕΣΠΑ, Horizon Europe, Ίδια Χρηματοδότηση">
+</div>
+
+<!-- Ίδρυμα -->
+<div class="mb-3">
+<label class="form-label">Ίδρυμα / Νοσοκομείο / Πανεπιστήμιο</label>
+<input id="resInstitution" type="text" class="form-control" placeholder="π.χ. ΕΚΠΑ, Ευαγγελισμός">
+</div>
+
+<!-- Χώρα -->
+<div class="mb-3">
+<label class="form-label">Χώρα</label>
+<select id="resCountry" class="form-select">
+<option value="" disabled selected>Επιλέξτε χώρα</option>
+<option>Ελλάδα</option>
+<option>Κύπρος</option>
+<option>Αυστρία</option>
+<option>Βέλγιο</option>
+<option>Γαλλία</option>
+<option>Γερμανία</option>
+<option>Ισπανία</option>
+<option>Ιταλία</option>
+<option>Ολλανδία</option>
+<option>Πορτογαλία</option>
+<option>Σουηδία</option>
+<option>Ηνωμένο Βασίλειο</option>
+<option>ΗΠΑ</option>
+<option>Πολυκεντρική / Διεθνής</option>
+<option>Άλλη</option>
+</select>
+</div>
+
+<hr>
+
+<!-- Διάρκεια -->
+<h5 class="mb-3">Διάρκεια</h5>
+
+<div class="row mb-2">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="resDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="resDateTo" type="date" class="form-control" id="resDateTo">
+</div>
+</div>
+
+<div class="mb-3 form-check">
+<input type="checkbox" class="form-check-input" id="resOngoing"
+   onchange="document.getElementById('resDateTo').disabled = this.checked; if(this.checked) document.getElementById('resDateTo').value='';">
+<label class="form-check-label" for="resOngoing">Συνεχίζεται</label>
+</div>
+
+<hr>
+
+<!-- Ρόλος -->
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="resRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Επιστημονικός Υπεύθυνος</option>
+<option>Συντονιστής</option>
+<option>Κύριος Ερευνητής</option>
+<option>Συνεργάτης</option>
+<option>Στατιστικός</option>
+<option>Data Manager</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<hr>
+
+<!-- Άλλα στοιχεία -->
+<h5 class="mb-3">Άλλα Στοιχεία</h5>
+
+<div class="mb-3">
+<label class="form-label">Αριθμός Πρωτοκόλλου</label>
+<input id="resProtocol" type="text" class="form-control" placeholder="π.χ. 1234/2024">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κωδικός Μελέτης</label>
+<input id="resStudyCode" type="text" class="form-control" placeholder="π.χ. STUDY-2024-001">
+</div>
+
+<div class="mb-3">
+<label class="form-label">ClinicalTrials.gov ID <span class="text-muted">(προαιρετικό)</span></label>
+<input id="resClinicalTrialsId" type="text" class="form-control" placeholder="π.χ. NCT12345678">
+</div>
+
+<hr>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="resDescription" class="form-control" rows="4"
+   placeholder="Σύντομη περιγραφή του ερευνητικού προγράμματος..."></textarea>
+</div>
+
+<!-- Συνημμένα (έως 3) -->
+<div class="mb-3">
+<label class="form-label">Συνημμένα Αρχεία <span class="text-muted">(έως 3 αρχεία)</span></label>
+<input id="resAttachment1" type="file" class="form-control mb-2" accept=".pdf,.jpg,.jpeg,.png">
+<input id="resAttachment2" type="file" class="form-control mb-2" accept=".pdf,.jpg,.jpeg,.png">
+<input id="resAttachment3" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveResearchBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Ερευνητικό Έργο</h3>
+<input id="resSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="researchList"></div>
+
+</div>
+</div>
+
+</div>
+</div>

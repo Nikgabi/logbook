@@ -1,0 +1,133 @@
+<div class="tab-pane fade" id="Prostgrad_training">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="fellowshipForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέα Μετεκπαίδευση</h3>
+
+<!-- Αντικείμενο -->
+<div class="mb-3">
+<label class="form-label">Αντικείμενο</label>
+<input id="felSubject" type="text" class="form-control" placeholder="π.χ. Επεμβατική Καρδιολογία">
+</div>
+
+<!-- Νοσοκομείο / Πανεπιστήμιο -->
+<div class="mb-3">
+<label class="form-label">Νοσοκομείο / Πανεπιστήμιο</label>
+<input id="felInstitution" type="text" class="form-control" placeholder="π.χ. Mayo Clinic, Johns Hopkins">
+</div>
+
+<!-- Τμήμα -->
+<div class="mb-3">
+<label class="form-label">Τμήμα</label>
+<input id="felDepartment" type="text" class="form-control" placeholder="π.χ. Τμήμα Καρδιολογίας">
+</div>
+
+<!-- Πόλη / Χώρα -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Πόλη</label>
+<input id="felCity" type="text" class="form-control" placeholder="π.χ. Rochester">
+</div>
+<div class="col">
+<label class="form-label">Χώρα</label>
+<select id="felCountry" class="form-select">
+<option value="" disabled selected>Επιλέξτε</option>
+<option>Ελλάδα</option>
+<option>Κύπρος</option>
+<option>Αυστρία</option>
+<option>Βέλγιο</option>
+<option>Γαλλία</option>
+<option>Γερμανία</option>
+<option>Ισπανία</option>
+<option>Ιταλία</option>
+<option>Ολλανδία</option>
+<option>Πορτογαλία</option>
+<option>Σουηδία</option>
+<option>Ελβετία</option>
+<option>Ηνωμένο Βασίλειο</option>
+<option>ΗΠΑ</option>
+<option>Καναδάς</option>
+<option>Αυστραλία</option>
+<option>Άλλη</option>
+</select>
+</div>
+</div>
+
+<!-- Ημερομηνίες -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="felDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="felDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<!-- Είδος -->
+<div class="mb-3">
+<label class="form-label">Είδος</label>
+<select id="felType" class="form-select">
+<option value="" disabled selected>Επιλέξτε είδος</option>
+<option>Clinical Fellowship</option>
+<option>Research Fellowship</option>
+<option>Observer</option>
+<option>Visiting Physician</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<!-- Υπεύθυνος -->
+<div class="mb-3">
+<label class="form-label">Υπεύθυνος</label>
+<input id="felSupervisor" type="text" class="form-control" placeholder="π.χ. Prof. John Smith">
+</div>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="felDescription" class="form-control" rows="3"
+   placeholder="Σύντομη περιγραφή μετεκπαίδευσης..."></textarea>
+</div>
+
+<!-- Βεβαίωση -->
+<div class="mb-3">
+<label class="form-label">Βεβαίωση</label>
+<input id="felAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveFellowshipBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Μετεκπαίδευση</h3>
+<input id="felSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="fellowshipsList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
