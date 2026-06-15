@@ -12,11 +12,11 @@ rel="stylesheet">
 
 <link href="./css/style.css" rel="stylesheet" >
 
-<script src="https://unpkg.com/dexie/dist/dexie.js"></script>
 
 
 </head>
 <body>
+<section>
 <div class="container py-4">
 
 <div class="card shadow-sm p-4 mb-4">
@@ -50,6 +50,7 @@ Logout
 
 </div>
 </div>
+</section>
 
 
 <div class="container py-4">
@@ -84,17 +85,10 @@ Logout
     <button class="nav-link"
             data-bs-toggle="tab"
             data-bs-target="#conferences">
-      Συνέδρια
+      Συνέδρια / Ανακοινώσεις
     </button>
   </li>
   
-  <li class="nav-item">
-    <button class="nav-link"
-            data-bs-toggle="tab"
-            data-bs-target="#presentations">
-      Ανακοινώσεις
-    </button>
-  </li>
   
   <li class="nav-item">
     <button class="nav-link"
@@ -170,7 +164,14 @@ Logout
 
 </ul>
 
-<div class="tab-content">
+
+<!-- Spinner — φαίνεται μέχρι να φορτώσει το Firebase -->
+<div id="loadingSpinner" class="text-center py-5">
+   <div class="spinner-border text-primary" role="status"></div>
+   <p class="text-muted mt-3">Φόρτωση...</p>
+</div>
+
+<div class="tab-content" id="mainTabContent" style="visibility:hidden;">
 
 <div
     class="tab-pane fade show active"
@@ -505,8 +506,8 @@ onkeyup="loadCredentials()">
   </div>
   </div>
   
- <div
-    class="tab-pane fade show active"
+  <div
+    class="tab-pane fade"
     id="publications">
 
      <!-- ===================================================== -->
@@ -956,6 +957,520 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
+
+<div class="tab-pane fade" id="research">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="researchForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέο Ερευνητικό Πρόγραμμα</h3>
+
+<!-- Τίτλος -->
+<div class="mb-3">
+<label class="form-label">Τίτλος Ερευνητικού Προγράμματος</label>
+<input id="resTitle" type="text" class="form-control" placeholder="π.χ. Μελέτη επίδρασης...">
+</div>
+
+<!-- Επιστημονικό αντικείμενο -->
+<div class="mb-3">
+<label class="form-label">Επιστημονικό Αντικείμενο</label>
+<input id="resSubject" type="text" class="form-control" placeholder="π.χ. Καρδιολογία, Ογκολογία...">
+</div>
+
+<!-- Φορέας χρηματοδότησης -->
+<div class="mb-3">
+<label class="form-label">Φορέας Χρηματοδότησης</label>
+<input id="resFunding" type="text" class="form-control" placeholder="π.χ. ΕΣΠΑ, Horizon Europe, Ίδια Χρηματοδότηση">
+</div>
+
+<!-- Ίδρυμα -->
+<div class="mb-3">
+<label class="form-label">Ίδρυμα / Νοσοκομείο / Πανεπιστήμιο</label>
+<input id="resInstitution" type="text" class="form-control" placeholder="π.χ. ΕΚΠΑ, Ευαγγελισμός">
+</div>
+
+<!-- Χώρα -->
+<div class="mb-3">
+<label class="form-label">Χώρα</label>
+<select id="resCountry" class="form-select">
+<option value="" disabled selected>Επιλέξτε χώρα</option>
+<option>Ελλάδα</option>
+<option>Κύπρος</option>
+<option>Αυστρία</option>
+<option>Βέλγιο</option>
+<option>Γαλλία</option>
+<option>Γερμανία</option>
+<option>Ισπανία</option>
+<option>Ιταλία</option>
+<option>Ολλανδία</option>
+<option>Πορτογαλία</option>
+<option>Σουηδία</option>
+<option>Ηνωμένο Βασίλειο</option>
+<option>ΗΠΑ</option>
+<option>Πολυκεντρική / Διεθνής</option>
+<option>Άλλη</option>
+</select>
+</div>
+
+<hr>
+
+<!-- Διάρκεια -->
+<h5 class="mb-3">Διάρκεια</h5>
+
+<div class="row mb-2">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="resDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="resDateTo" type="date" class="form-control" id="resDateTo">
+</div>
+</div>
+
+<div class="mb-3 form-check">
+<input type="checkbox" class="form-check-input" id="resOngoing"
+   onchange="document.getElementById('resDateTo').disabled = this.checked; if(this.checked) document.getElementById('resDateTo').value='';">
+<label class="form-check-label" for="resOngoing">Συνεχίζεται</label>
+</div>
+
+<hr>
+
+<!-- Ρόλος -->
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="resRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Επιστημονικός Υπεύθυνος</option>
+<option>Συντονιστής</option>
+<option>Κύριος Ερευνητής</option>
+<option>Συνεργάτης</option>
+<option>Στατιστικός</option>
+<option>Data Manager</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<hr>
+
+<!-- Άλλα στοιχεία -->
+<h5 class="mb-3">Άλλα Στοιχεία</h5>
+
+<div class="mb-3">
+<label class="form-label">Αριθμός Πρωτοκόλλου</label>
+<input id="resProtocol" type="text" class="form-control" placeholder="π.χ. 1234/2024">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κωδικός Μελέτης</label>
+<input id="resStudyCode" type="text" class="form-control" placeholder="π.χ. STUDY-2024-001">
+</div>
+
+<div class="mb-3">
+<label class="form-label">ClinicalTrials.gov ID <span class="text-muted">(προαιρετικό)</span></label>
+<input id="resClinicalTrialsId" type="text" class="form-control" placeholder="π.χ. NCT12345678">
+</div>
+
+<hr>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="resDescription" class="form-control" rows="4"
+   placeholder="Σύντομη περιγραφή του ερευνητικού προγράμματος..."></textarea>
+</div>
+
+<!-- Συνημμένα (έως 3) -->
+<div class="mb-3">
+<label class="form-label">Συνημμένα Αρχεία <span class="text-muted">(έως 3 αρχεία)</span></label>
+<input id="resAttachment1" type="file" class="form-control mb-2" accept=".pdf,.jpg,.jpeg,.png">
+<input id="resAttachment2" type="file" class="form-control mb-2" accept=".pdf,.jpg,.jpeg,.png">
+<input id="resAttachment3" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveResearchBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Ερευνητικό Έργο</h3>
+<input id="resSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="researchList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div class="tab-pane fade" id="awards">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="awardsForm">
+
+<h3 class="section-title mb-4">Νέο Βραβείο</h3>
+
+<!-- Τίτλος -->
+<div class="mb-3">
+<label class="form-label">Τίτλος Βραβείου</label>
+<input id="awardTitle" type="text" class="form-control" placeholder="π.χ. Βραβείο Καλύτερης Ανακοίνωσης">
+</div>
+
+<!-- Κατηγορία -->
+<div class="mb-3">
+<label class="form-label">Κατηγορία</label>
+<select id="awardCategory" class="form-select">
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
+<option>Επιστημονικό</option>
+<option>Ερευνητικό</option>
+<option>Εκπαιδευτικό</option>
+<option>Καλύτερη εργασία</option>
+<option>Poster</option>
+<option>Διάλεξη</option>
+<option>Υποτροφία</option>
+<option>Τιμητική διάκριση</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<!-- Φορέας / Συνέδριο -->
+<div class="mb-3">
+<label class="form-label">Φορέας / Συνέδριο</label>
+<input id="awardOrganizer" type="text" class="form-control" placeholder="π.χ. Ελληνική Καρδιολογική Εταιρεία">
+</div>
+
+<!-- Ημερομηνία -->
+<div class="mb-3">
+<label class="form-label">Ημερομηνία</label>
+<input id="awardDate" type="date" class="form-control">
+</div>
+
+<!-- Θέση -->
+<div class="mb-3">
+<label class="form-label">Θέση</label>
+<select id="awardPosition" class="form-select">
+<option value="" disabled selected>Επιλέξτε θέση</option>
+<option>1ο</option>
+<option>2ο</option>
+<option>3ο</option>
+<option>Τιμητικό</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="awardDescription" class="form-control" rows="3"
+   placeholder="Σύντομη περιγραφή βραβείου..."></textarea>
+</div>
+
+<!-- Βεβαίωση -->
+<div class="mb-3">
+<label class="form-label">Βεβαίωση</label>
+<input id="awardAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveAwardBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Βραβεία & Διακρίσεις</h3>
+<input id="awardSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="awardsList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div class="tab-pane fade" id="Prostgrad_training">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="fellowshipForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέα Μετεκπαίδευση</h3>
+
+<!-- Αντικείμενο -->
+<div class="mb-3">
+<label class="form-label">Αντικείμενο</label>
+<input id="felSubject" type="text" class="form-control" placeholder="π.χ. Επεμβατική Καρδιολογία">
+</div>
+
+<!-- Νοσοκομείο / Πανεπιστήμιο -->
+<div class="mb-3">
+<label class="form-label">Νοσοκομείο / Πανεπιστήμιο</label>
+<input id="felInstitution" type="text" class="form-control" placeholder="π.χ. Mayo Clinic, Johns Hopkins">
+</div>
+
+<!-- Τμήμα -->
+<div class="mb-3">
+<label class="form-label">Τμήμα</label>
+<input id="felDepartment" type="text" class="form-control" placeholder="π.χ. Τμήμα Καρδιολογίας">
+</div>
+
+<!-- Πόλη / Χώρα -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Πόλη</label>
+<input id="felCity" type="text" class="form-control" placeholder="π.χ. Rochester">
+</div>
+<div class="col">
+<label class="form-label">Χώρα</label>
+<select id="felCountry" class="form-select">
+<option value="" disabled selected>Επιλέξτε</option>
+<option>Ελλάδα</option>
+<option>Κύπρος</option>
+<option>Αυστρία</option>
+<option>Βέλγιο</option>
+<option>Γαλλία</option>
+<option>Γερμανία</option>
+<option>Ισπανία</option>
+<option>Ιταλία</option>
+<option>Ολλανδία</option>
+<option>Πορτογαλία</option>
+<option>Σουηδία</option>
+<option>Ελβετία</option>
+<option>Ηνωμένο Βασίλειο</option>
+<option>ΗΠΑ</option>
+<option>Καναδάς</option>
+<option>Αυστραλία</option>
+<option>Άλλη</option>
+</select>
+</div>
+</div>
+
+<!-- Ημερομηνίες -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="felDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="felDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<!-- Είδος -->
+<div class="mb-3">
+<label class="form-label">Είδος</label>
+<select id="felType" class="form-select">
+<option value="" disabled selected>Επιλέξτε είδος</option>
+<option>Clinical Fellowship</option>
+<option>Research Fellowship</option>
+<option>Observer</option>
+<option>Visiting Physician</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<!-- Υπεύθυνος -->
+<div class="mb-3">
+<label class="form-label">Υπεύθυνος</label>
+<input id="felSupervisor" type="text" class="form-control" placeholder="π.χ. Prof. John Smith">
+</div>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="felDescription" class="form-control" rows="3"
+   placeholder="Σύντομη περιγραφή μετεκπαίδευσης..."></textarea>
+</div>
+
+<!-- Βεβαίωση -->
+<div class="mb-3">
+<label class="form-label">Βεβαίωση</label>
+<input id="felAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveFellowshipBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Μετεκπαίδευση</h3>
+<input id="felSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="fellowshipsList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div class="tab-pane fade" id="seminars">
+
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+
+<div class="card shadow-sm p-4" id="seminarForm" style="display:none;">
+
+<h3 class="section-title mb-4">Νέο Σεμινάριο</h3>
+
+<!-- Τίτλος -->
+<div class="mb-3">
+<label class="form-label">Τίτλος</label>
+<input id="semTitle" type="text" class="form-control" placeholder="π.χ. Βασικές Αρχές Στατιστικής Ανάλυσης">
+</div>
+
+<!-- Φορέας -->
+<div class="mb-3">
+<label class="form-label">Φορέας</label>
+<input id="semOrganizer" type="text" class="form-control" placeholder="π.χ. Ελληνική Καρδιολογική Εταιρεία">
+</div>
+
+<!-- Είδος -->
+<div class="mb-3">
+<label class="form-label">Είδος</label>
+<select id="semType" class="form-select">
+<option value="" disabled selected>Επιλέξτε είδος</option>
+<option>Δια ζώσης</option>
+<option>Online</option>
+<option>Hybrid</option>
+</select>
+</div>
+
+<!-- Ημερομηνίες -->
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="semDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="semDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<!-- Credits -->
+<div class="mb-3">
+<label class="form-label">Credits <span class="text-muted">(CME/CPD)</span></label>
+<input id="semCredits" type="number" min="0" step="0.5" class="form-control" placeholder="π.χ. 5">
+</div>
+
+<hr>
+
+<!-- Ρόλος συμμετοχής -->
+<h5 class="mb-3">Ρόλος Συμμετοχής</h5>
+
+<div class="mb-3">
+<div class="form-check mb-2">
+<input class="form-check-input" type="checkbox" id="semAttendee">
+<label class="form-check-label" for="semAttendee">Παρακολούθηση</label>
+</div>
+<div class="form-check mb-2">
+<input class="form-check-input" type="checkbox" id="semTrainer">
+<label class="form-check-label" for="semTrainer">Εκπαιδευτής</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="semSpeaker">
+<label class="form-check-label" for="semSpeaker">Ομιλητής</label>
+</div>
+</div>
+
+<hr>
+
+<!-- Περιγραφή -->
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="semDescription" class="form-control" rows="3"
+   placeholder="Σύντομη περιγραφή σεμιναρίου..."></textarea>
+</div>
+
+<!-- Πιστοποιητικό -->
+<div class="mb-3">
+<label class="form-label">Πιστοποιητικό</label>
+<input id="semAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveSeminarBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Σεμινάρια</h3>
+<input id="semSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="seminarsList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -965,3 +1480,4 @@ class="btn btn-primary btn-lg">
 <script type="module" src="./js/app.js"></script>
 </body>
 </html>
+
