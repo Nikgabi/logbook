@@ -1,11 +1,10 @@
-
 import Dexie from
 "https://cdn.jsdelivr.net/npm/dexie@4/dist/dexie.mjs";
 
 export const db =
 new Dexie("LogBookDB");
 
-db.version(9).stores({
+db.version(11).stores({
 
    credentials:
    "++id, uid, certificationType, title",
@@ -33,6 +32,21 @@ db.version(9).stores({
 
    awards:
    "++id, uid, title, category, date",
+
+   languages:
+   "++id, uid, name, level",
+
+   hobbies:
+   "++id, uid, category",
+
+   associations:
+   "++id, uid, name, category, dateFrom",
+
+   books:
+   "++id, uid, title, role",
+
+   journals:
+   "++id, uid, title, role, dateFrom",
 
    trainings:
    "++id, uid, title, startDate"
