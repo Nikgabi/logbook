@@ -1,0 +1,189 @@
+<!-- ===================================================== -->
+<!-- ΞΕΝΕΣ ΓΛΩΣΣΕΣ -->
+<!-- ===================================================== -->
+<div class="tab-pane fade" id="langue_hob">
+<div class="row">
+
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="languageForm">
+
+<h3 class="section-title mb-4">Νέα Ξένη Γλώσσα</h3>
+
+<div class="mb-3">
+<label class="form-label">Γλώσσα</label>
+<input id="langName" type="text" class="form-control" placeholder="π.χ. Αγγλικά, Γαλλικά">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Επίπεδο</label>
+<select id="langLevel" class="form-select">
+<option value="" disabled selected>Επιλέξτε επίπεδο</option>
+<option>A1</option>
+<option>A2</option>
+<option>B1</option>
+<option>B2</option>
+<option>C1</option>
+<option>C2</option>
+<option>Native</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Πιστοποιητικό</label>
+<input id="langAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="d-grid">
+<button id="saveLanguageBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Ξένες Γλώσσες</h3>
+<input id="langSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+<div id="languagesList"></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ΧΟΜΠΙ -->
+<!-- ===================================================== -->
+<div class="tab-pane fade" id="hobbies">
+<div class="row">
+
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="hobbyForm">
+
+<h3 class="section-title mb-4">Νέο Χόμπι</h3>
+
+<div class="mb-3">
+<label class="form-label">Κατηγορία</label>
+<select id="hobbyCategory" class="form-select">
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
+<option>Μουσική</option>
+<option>Τέχνες</option>
+<option>Φωτογραφία</option>
+<option>Αθλητισμός</option>
+<option>Ταξίδια</option>
+<option>Προγραμματισμός</option>
+<option>Εθελοντισμός</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Περιγραφή</label>
+<textarea id="hobbyDescription" class="form-control" rows="4"
+   placeholder="Περιγράψτε το χόμπι σας..."></textarea>
+</div>
+
+<div class="d-grid">
+<button id="saveHobbyBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Χόμπι & Ενδιαφέροντα</h3>
+<input id="hobbySearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+<div id="hobbiesList"></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ΣΥΛΛΟΓΟΙ - ΕΤΑΙΡΕΙΕΣ -->
+<!-- ===================================================== -->
+<div class="tab-pane fade" id="associations">
+<div class="row">
+
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="associationForm">
+
+<h3 class="section-title mb-4">Νέος Σύλλογος / Εταιρεία</h3>
+
+<div class="mb-3">
+<label class="form-label">Όνομα Συλλόγου / Εταιρείας</label>
+<input id="assocName" type="text" class="form-control" placeholder="π.χ. Ελληνική Καρδιολογική Εταιρεία">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κατηγορία</label>
+<select id="assocCategory" class="form-select">
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
+<option>Ιατρικός Σύλλογος</option>
+<option>Επιστημονική Εταιρεία</option>
+<option>Ευρωπαϊκή Εταιρεία</option>
+<option>Διεθνής Εταιρεία</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="assocDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="assocDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<div class="mb-3 form-check">
+<input type="checkbox" class="form-check-input" id="assocCurrent"
+   onchange="document.getElementById('assocDateTo').disabled = this.checked; if(this.checked) document.getElementById('assocDateTo').value='';">
+<label class="form-check-label" for="assocCurrent">Τρέχον Μέλος</label>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="assocRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Απλό Μέλος</option>
+<option>Πρόεδρος</option>
+<option>Αντιπρόεδρος</option>
+<option>Γραμματέας</option>
+<option>Ταμίας</option>
+<option>Μέλος ΔΣ</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Website</label>
+<input id="assocWebsite" type="url" class="form-control" placeholder="https://www.example.com">
+</div>
+
+<div class="d-grid">
+<button id="saveAssociationBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Σύλλογοι & Εταιρείες</h3>
+<input id="assocSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+<div id="associationsList"></div>
+</div>
+</div>
+
+</div>
+</div>
