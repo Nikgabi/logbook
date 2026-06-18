@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Credentials Module</title>
+<title>Medical Logbook</title>
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -26,7 +26,7 @@ rel="stylesheet">
 <div>
 <h1 class="mb-1">Medical LogBook</h1>
 <p class="text-muted mb-0">
-Ηλεκτρονικό Portfolio Ειδικευόμενου Ιατρού
+Ηλεκτρονικό Portfolio Ειδικευόμενου & Ειδικευμένου Ιατρού
 </p>
 </div>
 
@@ -43,7 +43,13 @@ Logout
 
 </button>
 
+<a href="./docs/odigos.pdf" target="_blank" class="btn btn-outline-secondary">
+   📖 Οδηγίες
+</a>
+
 <div id="userBox"></div>
+
+
 </div>
 
 </div>
@@ -59,6 +65,14 @@ Logout
 
   <li class="nav-item">
     <button class="nav-link active"
+            data-bs-toggle="tab"
+            data-bs-target="#profile">
+      Profile
+    </button>
+  </li>
+
+  <li class="nav-item">
+    <button class="nav-link"
             data-bs-toggle="tab"
             data-bs-target="#credentials">
       Πτυχία
@@ -185,6 +199,22 @@ Logout
       Χόμπι
     </button>
   </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#administration">
+      Διοίκηση
+    </button>
+  </li>
+  
+  <li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#cv">
+      Βιογραφικό
+    </button>
+  </li>
 
 </ul>
 
@@ -196,9 +226,123 @@ Logout
 </div>
 
 <div class="tab-content" id="mainTabContent" style="visibility:hidden;">
+<div class="tab-pane fade show active" id="profile">
+<div class="row justify-content-center">
 
+<div class="col-lg-6">
+<div class="card shadow-sm p-4" id="profileForm">
+
+<h3 class="section-title mb-4">Προφίλ</h3>
+
+<!-- Φωτογραφία -->
+<div class="mb-3 text-center">
+<div id="profilePhotoPreview" class="mx-auto mb-2" style="
+   width:120px; height:120px; border-radius:50%;
+   background:#e9ecef; display:flex; align-items:center;
+   justify-content:center; overflow:hidden; border:2px solid #dee2e6;">
+   <span class="text-muted" id="profilePhotoPlaceholder" style="font-size:40px;">👤</span>
+   <img id="profilePhotoImg" src="" style="display:none; width:100%; height:100%; object-fit:cover;">
+</div>
+<label class="btn btn-outline-secondary btn-sm">
+   Φωτογραφία
+   <input id="profilePhoto" type="file" accept="image/*" style="display:none;"
+      onchange="previewProfilePhoto(this)">
+</label>
+</div>
+
+<hr>
+
+<!-- Προσωπικά -->
+<h5 class="mb-3">Προσωπικά Στοιχεία</h5>
+
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Όνομα</label>
+<input id="profileFirstName" type="text" class="form-control" placeholder="π.χ. Γιώργος">
+</div>
+<div class="col">
+<label class="form-label">Επώνυμο</label>
+<input id="profileLastName" type="text" class="form-control" placeholder="π.χ. Παπαδόπουλος">
+</div>
+</div>
+
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">First Name (EN)</label>
+<input id="profileFirstNameEn" type="text" class="form-control" placeholder="π.χ. George">
+</div>
+<div class="col">
+<label class="form-label">Last Name (EN)</label>
+<input id="profileLastNameEn" type="text" class="form-control" placeholder="π.χ. Papadopoulos">
+</div>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Τίτλος / Ειδικότητα</label>
+<input id="profileTitle" type="text" class="form-control" placeholder="π.χ. Χειρουργός, Επιμελητής Α'">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Title / Specialty (EN)</label>
+<input id="profileTitleEn" type="text" class="form-control" placeholder="π.χ. Surgeon, Senior Consultant">
+</div>
+
+<hr>
+
+<!-- Επικοινωνία -->
+<h5 class="mb-3">Στοιχεία Επικοινωνίας</h5>
+
+<div class="mb-3">
+<label class="form-label">Email</label>
+<input id="profileEmail" type="email" class="form-control" placeholder="π.χ. doctor@email.com">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Τηλέφωνο</label>
+<input id="profilePhone" type="tel" class="form-control" placeholder="π.χ. +30 210 1234567">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Διεύθυνση</label>
+<input id="profileAddress" type="text" class="form-control" placeholder="π.χ. Αθήνα, Ελλάδα">
+</div>
+
+<div class="mb-3">
+<label class="form-label">LinkedIn <span class="text-muted">(προαιρετικό)</span></label>
+<input id="profileLinkedin" type="url" class="form-control" placeholder="https://linkedin.com/in/...">
+</div>
+
+<div class="mb-3">
+<label class="form-label">ORCID <span class="text-muted">(προαιρετικό)</span></label>
+<input id="profileOrcid" type="text" class="form-control" placeholder="π.χ. 0000-0000-0000-0000">
+</div>
+
+<hr>
+
+<!-- Σύντομο Βιογραφικό -->
+<div class="mb-3">
+<label class="form-label">Σύντομο Βιογραφικό <span class="text-muted">(GR)</span></label>
+<textarea id="profileBioGr" class="form-control" rows="4"
+   placeholder="Σύντομη περιγραφή για την κορυφή του βιογραφικού..."></textarea>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Short Bio <span class="text-muted">(EN)</span></label>
+<textarea id="profileBioEn" class="form-control" rows="4"
+   placeholder="Short biographical statement for the top of your CV..."></textarea>
+</div>
+
+<div class="d-grid">
+<button id="saveProfileBtn" class="btn btn-primary btn-lg">Αποθήκευση Προφίλ</button>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
 <div
-    class="tab-pane fade show active"
+    class="tab-pane fade"
     id="credentials">
 
      <!-- ===================================================== -->
@@ -349,7 +493,6 @@ onkeyup="loadCredentials()">
 </div>
 </div>
 </div>
-
  <div
     class="tab-pane fade"
     id="jobs">
@@ -529,7 +672,6 @@ onkeyup="loadCredentials()">
   </div>
   </div>
   </div>
-  
   <div
     class="tab-pane fade"
     id="publications">
@@ -694,7 +836,6 @@ class="btn btn-primary btn-lg">
 </div>
 </div>
 </div>
-
 <div class="tab-pane fade" id="conferences">
 
 <div class="row">
@@ -981,7 +1122,188 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
+<!-- ===================================================== -->
+<!-- ΧΕΙΡΟΥΡΓΕΙΑ -->
+<!-- ===================================================== -->
+<div class="tab-pane fade" id="proced">
+<div class="row">
 
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="procedureForm">
+
+<h3 class="section-title mb-4">Καταχώρηση Χειρουργείου</h3>
+
+<div class="mb-3">
+<label class="form-label">Νοσοκομείο</label>
+<input id="procHospital" type="text" class="form-control" placeholder="π.χ. Γ.Ν. Ευαγγελισμός">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κλινική / Τμήμα</label>
+<input id="procDepartment" type="text" class="form-control" placeholder="π.χ. Α' Χειρουργική Κλινική">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="procRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Χειρουργός</option>
+<option>Α' Βοηθός</option>
+<option>Β' Βοηθός</option>
+<option>Εκπαιδευτής</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Τύπος</label>
+<select id="procType" class="form-select">
+<option value="" disabled selected>Επιλέξτε τύπο</option>
+<option>Ανοικτό</option>
+<option>Λαπαροσκοπικό</option>
+<option>Ενδοσκοπικό</option>
+<option>Ρομποτικό</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Πράξη</label>
+<input id="procName" type="text" class="form-control" placeholder="π.χ. Σκωληκοειδεκτομή">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Αριθμός</label>
+<input id="procCount" type="number" min="1" class="form-control" placeholder="π.χ. 10">
+</div>
+
+<div class="d-grid gap-2">
+<button id="saveProcedureBtn" class="btn btn-primary btn-lg">Ενημέρωση Πίνακα</button>
+<button id="exportProcedurePdfBtn" class="btn btn-outline-danger">
+   📄 Export PDF Λογάριθμου
+</button>
+</div>
+
+</div>
+</div>
+
+<!-- LIST -->
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+<h3 class="section-title mb-0">Λογάριθμος Χειρουργείων</h3>
+<input id="procSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<!-- Φίλτρο Ρόλου -->
+<div class="mb-3">
+<select id="procRoleFilter" class="form-select form-select-sm w-auto">
+<option value="">Όλοι οι ρόλοι</option>
+<option>Χειρουργός</option>
+<option>Α' Βοηθός</option>
+<option>Β' Βοηθός</option>
+<option>Εκπαιδευτής</option>
+</select>
+</div>
+
+<div id="proceduresList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ΙΑΤΡΙΚΕΣ ΠΡΑΞΕΙΣ -->
+<!-- ===================================================== -->
+<div class="tab-pane fade" id="medical_proc">
+<div class="row">
+
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="medprocForm">
+
+<h3 class="section-title mb-4">Καταχώρηση Ιατρικής Πράξης</h3>
+
+<div class="mb-3">
+<label class="form-label">Νοσοκομείο</label>
+<input id="mpHospital" type="text" class="form-control" placeholder="π.χ. Γ.Ν. Ευαγγελισμός">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κλινική / Τμήμα</label>
+<input id="mpDepartment" type="text" class="form-control" placeholder="π.χ. Γαστρεντερολογικό">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="mpRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Εκτελών</option>
+<option>Βοηθός</option>
+<option>Εκπαιδευτής</option>
+<option>Παρατηρητής</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Κατηγορία</label>
+<select id="mpCategory" class="form-select">
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
+<option>Ενδοσκοπική</option>
+<option>Απεικονιστική</option>
+<option>Επεμβατική</option>
+<option>Διαγνωστική</option>
+<option>Θεραπευτική</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Πράξη</label>
+<input id="mpName" type="text" class="form-control" placeholder="π.χ. Γαστροσκόπηση">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Αριθμός</label>
+<input id="mpCount" type="number" min="1" class="form-control" placeholder="π.χ. 50">
+</div>
+
+<div class="d-grid gap-2">
+<button id="saveMedprocBtn" class="btn btn-primary btn-lg">Ενημέρωση Πίνακα</button>
+<button id="exportMedprocPdfBtn" class="btn btn-outline-danger">
+   📄 Export PDF Λογάριθμου
+</button>
+</div>
+
+</div>
+</div>
+
+<!-- LIST -->
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+<h3 class="section-title mb-0">Λογάριθμος Ιατρικών Πράξεων</h3>
+<input id="mpSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div class="mb-3">
+<select id="mpRoleFilter" class="form-select form-select-sm w-auto">
+<option value="">Όλοι οι ρόλοι</option>
+<option>Εκτελών</option>
+<option>Βοηθός</option>
+<option>Εκπαιδευτής</option>
+<option>Παρατηρητής</option>
+</select>
+</div>
+
+<div id="medprocList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
 <div class="tab-pane fade" id="research">
 
 <div class="row">
@@ -1246,6 +1568,144 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
+<div class="tab-pane fade" id="educat">
+<div class="row">
+
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
+
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="eduForm">
+
+<h3 class="section-title mb-4">Νέα Εκπαιδευτική Δραστηριότητα</h3>
+
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="eduRole" class="form-select" onchange="toggleEduAttachment(this)">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Εκπαιδευόμενος</option>
+<option>Ομιλητής</option>
+<option>Διδάσκων</option>
+<option>Εκπαιδευτής</option>
+<option>Διευθυντής Προγράμματος</option>
+<option>Επιστημονικός Υπεύθυνος</option>
+<option>Συντονιστής</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Δραστηριότητα</label>
+<select id="eduActivity" class="form-select">
+<option value="" disabled selected>Επιλέξτε δραστηριότητα</option>
+<option>Webinar</option>
+<option>Διάλεξη</option>
+<option>Σεμινάριο</option>
+<option>Hands-on Course</option>
+<option>Workshop</option>
+<option>ΚΕΔΙΒΙΜ</option>
+<option>Προπτυχιακό μάθημα</option>
+<option>Μεταπτυχιακό μάθημα</option>
+<option>Κλινικό φροντιστήριο</option>
+<option>Morbidity &amp; Mortality Meeting</option>
+<option>Simulation Training</option>
+<option>ATLS / ALS / APLS Course</option>
+<option>E-learning</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Τίτλος</label>
+<input id="eduTitle" type="text" class="form-control" placeholder="π.χ. Βασικές Αρχές Λαπαροσκοπικής Χειρουργικής">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Φορέας</label>
+<input id="eduOrganizer" type="text" class="form-control" placeholder="π.χ. ΕΚΠΑ, Ελληνική Χειρουργική Εταιρεία">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Τόπος</label>
+<input id="eduLocation" type="text" class="form-control" placeholder="π.χ. Αθήνα / Online">
+</div>
+
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="eduDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="eduDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<div class="row mb-3">
+<div class="col">
+<label class="form-label">Ώρες Εκπαίδευσης</label>
+<input id="eduHours" type="number" min="0" step="0.5" class="form-control" placeholder="π.χ. 8">
+</div>
+<div class="col">
+<label class="form-label">Credits <span class="text-muted">(CME/CPD)</span></label>
+<input id="eduCredits" type="number" min="0" step="0.5" class="form-control" placeholder="π.χ. 5">
+</div>
+</div>
+
+<!-- Πιστοποιητικό — εμφανίζεται μόνο για Εκπαιδευόμενο -->
+<div class="mb-3" id="eduAttachmentSection" style="display:none;">
+<label class="form-label">Πιστοποιητικό</label>
+<input id="eduAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Παρατηρήσεις</label>
+<textarea id="eduNotes" class="form-control" rows="3"
+   placeholder="Προαιρετικές παρατηρήσεις..."></textarea>
+</div>
+
+<div class="d-grid">
+<button id="saveEduBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Εκπαιδευτικό Έργο</h3>
+<input id="eduSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<!-- Φίλτρο Ρόλου -->
+<div class="mb-3">
+<select id="eduRoleFilter" class="form-select form-select-sm w-auto">
+<option value="">Όλοι οι ρόλοι</option>
+<option>Εκπαιδευόμενος</option>
+<option>Ομιλητής</option>
+<option>Διδάσκων</option>
+<option>Εκπαιδευτής</option>
+<option>Διευθυντής Προγράμματος</option>
+<option>Επιστημονικός Υπεύθυνος</option>
+<option>Συντονιστής</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div id="eduList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
 <div class="tab-pane fade" id="Prostgrad_training">
 
 <div class="row">
@@ -1495,7 +1955,6 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
-
 <!-- ===================================================== -->
 <!-- ΒΙΒΛΙΑ -->
 <!-- ===================================================== -->
@@ -1646,7 +2105,6 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
-
 <!-- ===================================================== -->
 <!-- ΞΕΝΕΣ ΓΛΩΣΣΕΣ -->
 <!-- ===================================================== -->
@@ -1836,9 +2294,136 @@ class="btn btn-primary btn-lg">
 
 </div>
 </div>
+<div class="tab-pane fade" id="administration">
+<div class="row">
 
+<!-- ===================================================== -->
+<!-- FORM -->
+<!-- ===================================================== -->
 
+<div class="col-lg-5 mb-4">
+<div class="card shadow-sm p-4" id="adminForm">
 
+<h3 class="section-title mb-4">Νέα Διοικητική Θέση</h3>
+
+<div class="mb-3">
+<label class="form-label">Ρόλος</label>
+<select id="adminRole" class="form-select">
+<option value="" disabled selected>Επιλέξτε ρόλο</option>
+<option>Προϊστάμενος Τμήματος</option>
+<option>Διευθυντής Ιατρικής Υπηρεσίας</option>
+<option>Διευθυντής Τομέα</option>
+<option>Πρόεδρος Επιστημονικού Συμβουλίου</option>
+<option>Μέλος Επιστημονικού Συμβουλίου</option>
+<option>Πρόεδρος Επιτρ. Νοσοκομειακών Λοιμώξεων</option>
+<option>Μέλος Επιτρ. Νοσοκομειακών Λοιμώξεων</option>
+<option>Εκπρόσωπος Γιατρών στο ΔΣ Νοσοκομείου</option>
+<option>Πρόεδρος / Μέλος Συνδικαλιστικού</option>
+<option>Πρόεδρος / Μέλος Επιτροπής Εξετάσεων</option>
+<option>Πρόεδρος / Μέλος Επιτροπής</option>
+<option>Άλλο</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Ίδρυμα / Νοσοκομείο</label>
+<input id="adminInstitution" type="text" class="form-control" placeholder="π.χ. Γ.Ν. Ευαγγελισμός">
+</div>
+
+<div class="row mb-2">
+<div class="col">
+<label class="form-label">Από</label>
+<input id="adminDateFrom" type="date" class="form-control">
+</div>
+<div class="col">
+<label class="form-label">Έως</label>
+<input id="adminDateTo" type="date" class="form-control">
+</div>
+</div>
+
+<div class="mb-3 form-check">
+<input type="checkbox" class="form-check-input" id="adminCurrent"
+   onchange="document.getElementById('adminDateTo').disabled = this.checked; if(this.checked) document.getElementById('adminDateTo').value='';">
+<label class="form-check-label" for="adminCurrent">Τρέχουσα Θέση</label>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Πληροφορίες</label>
+<textarea id="adminInfo" class="form-control" rows="4"
+   placeholder="Επιπλέον πληροφορίες για τη θέση..."></textarea>
+</div>
+
+<div class="d-grid">
+<button id="saveAdminBtn" class="btn btn-primary btn-lg">Αποθήκευση</button>
+</div>
+
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- LIST -->
+<!-- ===================================================== -->
+
+<div class="col-lg-7">
+<div class="card shadow-sm p-4">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+<h3 class="section-title mb-0">Διοικητικές Θέσεις</h3>
+<input id="adminSearchInput" class="form-control w-auto" placeholder="Αναζήτηση...">
+</div>
+
+<div id="adminList"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div class="tab-pane fade" id="cv">
+<div class="row">
+
+<div class="col-12 mb-3">
+<div class="card shadow-sm p-3">
+<div class="d-flex gap-2 flex-wrap">
+   <button id="previewCvGrBtn" class="btn btn-outline-primary">
+      👁 Προεπισκόπηση GR
+   </button>
+   <button id="previewCvEnBtn" class="btn btn-outline-success">
+      👁 Preview EN
+   </button>
+   <button id="downloadCvGrBtn" class="btn btn-danger" style="display:none;">
+      📄 Download PDF (GR)
+   </button>
+   <button id="downloadCvEnBtn" class="btn btn-danger" style="display:none;">
+      📄 Download PDF (EN)
+   </button>
+   <button id="closeCvBtn" class="btn btn-outline-secondary" style="display:none;">
+      ✕ Κλείσιμο
+   </button>
+</div>
+</div>
+</div>
+
+<!-- Preview area -->
+<div class="col-12">
+<div id="cvPreviewArea" style="display:none;">
+<div id="cvDocument" style="
+   background: white;
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 48px 56px;
+   font-family: 'Georgia', serif;
+   font-size: 13px;
+   line-height: 1.6;
+   color: #1a1a1a;
+   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+   border-radius: 4px;
+"></div>
+</div>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1848,4 +2433,3 @@ class="btn btn-primary btn-lg">
 <script type="module" src="./js/app.js"></script>
 </body>
 </html>
-
