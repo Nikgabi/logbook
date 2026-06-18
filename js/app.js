@@ -13,6 +13,11 @@ import { saveFellowship, loadFellowships } from "./fellowships.js";
 import { saveAward, loadAwards } from "./awards.js";
 import { saveLanguage, loadLanguages, saveHobby, loadHobbies, saveAssociation, loadAssociations } from "./xobi.js";
 import { saveBook, loadBooks, saveJournal, loadJournals } from "./books_journals.js";
+import { saveAdmin, loadAdmin } from "./admin.js";
+import { saveProcedure, loadProcedures, exportProcedurePdf, saveMedproc, loadMedproc, exportMedprocPdf } from "./procedures.js";
+import { saveProfile, loadProfile } from "./profile.js";
+import { saveEdu, loadEdu } from "./edu.js";
+import { previewCV, downloadCV, closeCV } from "./cv.js";
 
 initAuth(async user => {
 
@@ -26,7 +31,9 @@ initAuth(async user => {
       "conferenceForm", "researchForm", "seminarForm",
       "fellowshipForm", "awardsForm",
       "languageForm", "hobbyForm", "associationForm",
-      "bookForm", "journalForm"
+      "bookForm", "journalForm", "adminForm",
+      "procedureForm", "medprocForm",
+      "profileForm", "eduForm"
    ];
 
    formIds.forEach(id => {
@@ -36,6 +43,7 @@ initAuth(async user => {
 
    try {
       if (user) {
+         await loadProfile();
          await loadCredentials();
          await loadJobs();
          await loadPublications();
@@ -49,6 +57,10 @@ initAuth(async user => {
          await loadAssociations();
          await loadBooks();
          await loadJournals();
+         await loadAdmin();
+         await loadProcedures();
+         await loadMedproc();
+         await loadEdu();
       }
    } catch(err) {
       console.error("❌ Error:", err);
@@ -84,6 +96,25 @@ document.getElementById("saveBookBtn").addEventListener("click", saveBook);
 document.getElementById("bookSearchInput").addEventListener("keyup", loadBooks);
 document.getElementById("saveJournalBtn").addEventListener("click", saveJournal);
 document.getElementById("journalSearchInput").addEventListener("keyup", loadJournals);
+document.getElementById("saveAdminBtn").addEventListener("click", saveAdmin);
+document.getElementById("adminSearchInput").addEventListener("keyup", loadAdmin);
+document.getElementById("saveProcedureBtn").addEventListener("click", saveProcedure);
+document.getElementById("procSearchInput").addEventListener("keyup", loadProcedures);
+document.getElementById("procRoleFilter").addEventListener("change", loadProcedures);
+document.getElementById("exportProcedurePdfBtn").addEventListener("click", exportProcedurePdf);
+document.getElementById("saveMedprocBtn").addEventListener("click", saveMedproc);
+document.getElementById("mpSearchInput").addEventListener("keyup", loadMedproc);
+document.getElementById("mpRoleFilter").addEventListener("change", loadMedproc);
+document.getElementById("exportMedprocPdfBtn").addEventListener("click", exportMedprocPdf);
+document.getElementById("saveProfileBtn").addEventListener("click", saveProfile);
+document.getElementById("saveEduBtn").addEventListener("click", saveEdu);
+document.getElementById("eduSearchInput").addEventListener("keyup", loadEdu);
+document.getElementById("eduRoleFilter").addEventListener("change", loadEdu);
+document.getElementById("previewCvGrBtn").addEventListener("click", () => previewCV("gr"));
+document.getElementById("previewCvEnBtn").addEventListener("click", () => previewCV("en"));
+document.getElementById("downloadCvGrBtn").addEventListener("click", downloadCV);
+document.getElementById("downloadCvEnBtn").addEventListener("click", downloadCV);
+document.getElementById("closeCvBtn").addEventListener("click", closeCV);
 
 const currentJob = document.getElementById("currentJob");
 const jobEndDate = document.getElementById("jobEndDate");

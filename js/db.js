@@ -4,7 +4,7 @@ import Dexie from
 export const db =
 new Dexie("LogBookDB");
 
-db.version(11).stores({
+db.version(15).stores({
 
    credentials:
    "++id, uid, certificationType, title",
@@ -47,6 +47,21 @@ db.version(11).stores({
 
    journals:
    "++id, uid, title, role, dateFrom",
+
+   administration:
+   "++id, uid, role, dateFrom",
+
+   procedures:
+   "++id, uid, hospital, role, type, name",
+
+   medprocedures:
+   "++id, uid, hospital, role, category, name",
+
+   profile:
+   "++id, uid",
+
+   education:
+   "++id, uid, role, activity, dateFrom",
 
    trainings:
    "++id, uid, title, startDate"
