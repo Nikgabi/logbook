@@ -1,7 +1,7 @@
 {
   "name": "Medical LogBook",
   "short_name": "MedLog",
-  "description": "Ηλεκτρονικό Portfolio Ειδικευόμενου & Ειδικευμένου Ιατρού ",
+  "description": "Ηλεκτρονικό Portfolio Ειδικευόμενου & Ειδικευμένου Ιατρού",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -11,13 +11,25 @@
       "src": "MedLogBook_s.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any_maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "MedLogBook_s.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "MedLogBook.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any_maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "MedLogBook.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
