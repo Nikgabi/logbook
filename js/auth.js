@@ -22,7 +22,7 @@ const firebaseConfig = {
 
 apiKey: "AIzaSyDXJWygGmkLERGCv1nFj9H7xHWVYuF-Row",
 
-authDomain: "medical-logbook-9a47f.firebaseapp.com",
+authDomain: "com.medical.logbook",
 
 projectId: "medical-logbook-9a47f",
 
