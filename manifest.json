@@ -1,0 +1,23 @@
+{
+  "name": "Medical LogBook",
+  "short_name": "MedLog",
+  "description": "Ηλεκτρονικό Portfolio Ειδικευόμενου & Ειδικευμένου Ιατρού ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "MedLogBook_s.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "MedLogBook.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
