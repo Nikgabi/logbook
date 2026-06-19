@@ -1,4 +1,4 @@
-const CACHE_NAME = 'medical-logbook-v1';
+const CACHE_NAME = 'medical-logbook-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -23,8 +23,8 @@ const urlsToCache = [
   'js/seminars.js',
   'js/ui.js',
   'js/xobi.js'
-  'MedLogBook.png',
-  'MedLogBook_s.png'
+  'logbook.png',
+  'logbook_s.png'
   // Πρόσθεσε εδώ όλα τα αρχεία που χρειάζεσαι (HTML, CSS, JS, εικόνες)
 ];
 
