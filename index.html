@@ -364,7 +364,7 @@ Logout
 <select
 id="credentialType"
 class="form-select">
-
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
 <option>Πτυχίο</option>
 <option>Μεταπτυχιακό</option>
 <option>Διδακτορικό</option>
@@ -550,6 +550,7 @@ onkeyup="loadCredentials()">
 		<select
 		id="organizationType"
 		class="form-select">
+		<option value="" disabled selected>Επιλέξτε κατηγορία</option>
 		<option>Νοσοκομείο</option>
 
 		<option>Πανεπιστημιακό Νοσοκομείο</option>
@@ -606,6 +607,8 @@ onkeyup="loadCredentials()">
 		<select
 		id="jobGrade"
 		class="form-select">
+		<option value="" disabled selected>Επιλέξτε κατηγορία</option>
+		
 		<option>Αγροτικός</option>
 
 		<option>Ειδικευόμενος</option>
@@ -695,7 +698,7 @@ onkeyup="loadCredentials()">
 <select
 id="publicationType"
 class="form-select">
-
+<option value="" disabled selected>Επιλέξτε κατηγορία</option>
 <option>Σε Περιοδικό Διεθνές</option>
 <option>Σε Ελληνικό Περιοδικό</option>
 <option>Σε online περιοδικό</option>
@@ -1505,7 +1508,7 @@ class="btn btn-primary btn-lg">
 
 <!-- Φορέας / Συνέδριο -->
 <div class="mb-3">
-<label class="form-label">Φορέας / Συνέδριο</label>
+<label class="form-label">Φορέας / Συνέδριο / Εταιρεία / Σύλλογος</label>
 <input id="awardOrganizer" type="text" class="form-control" placeholder="π.χ. Ελληνική Καρδιολογική Εταιρεία">
 </div>
 
@@ -2175,8 +2178,12 @@ class="btn btn-primary btn-lg">
 <select id="hobbyCategory" class="form-select">
 <option value="" disabled selected>Επιλέξτε κατηγορία</option>
 <option>Μουσική</option>
+<option>Χορός</option>
 <option>Τέχνες</option>
 <option>Φωτογραφία</option>
+<option>Ζωγραφική</option>
+<option>Θέατρο</option>
+<option>Κινηματογράφος</option>
 <option>Αθλητισμός</option>
 <option>Ταξίδια</option>
 <option>Προγραμματισμός</option>
@@ -2189,6 +2196,11 @@ class="btn btn-primary btn-lg">
 <label class="form-label">Περιγραφή</label>
 <textarea id="hobbyDescription" class="form-control" rows="4"
    placeholder="Περιγράψτε το χόμπι σας..."></textarea>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Πιστοποιητικό</label>
+<input id="HobbiesAttachment" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
 </div>
 
 <div class="d-grid">
@@ -2317,6 +2329,20 @@ class="btn btn-primary btn-lg">
 <option>Πρόεδρος Επιτρ. Νοσοκομειακών Λοιμώξεων</option>
 <option>Μέλος Επιτρ. Νοσοκομειακών Λοιμώξεων</option>
 <option>Εκπρόσωπος Γιατρών στο ΔΣ Νοσοκομείου</option>
+<option>Πρόεδρος Σχολής</option>
+<option>Πρύτανης</option>
+<option>Αντιπρύτανης</option>
+<option>Κοσμήτορας</option>
+<option>Πρόεδρος / Αντιπρόεδρος / Μέλος ΔΣ Ιατρικου συλλόγου</option>
+<option>Πρόεδρος Οργανισμού</option>
+<option>Αντιπρόεδρος Οργανισμού</option>
+<option>Μέλος ΔΣ Οργανισμού</option>
+<option>Γενικός Γραμματέας Υπουργείου</option>
+<option>Βουλευτής / Ευρωβουλευτής</option>
+<option>Δήμαρχος / Αντιδήμαρχος / Περιφερειάρχης</option>
+<option>Μέλος της Κυβέρνησης</option>
+<option>Θέση στην Τοπική αυτοδιοίκηση / Περιφέρεια</option>
+<option>Θέση σε ΕΕ</option>
 <option>Πρόεδρος / Μέλος Συνδικαλιστικού</option>
 <option>Πρόεδρος / Μέλος Επιτροπής Εξετάσεων</option>
 <option>Πρόεδρος / Μέλος Επιτροπής</option>
@@ -2325,7 +2351,7 @@ class="btn btn-primary btn-lg">
 </div>
 
 <div class="mb-3">
-<label class="form-label">Ίδρυμα / Νοσοκομείο</label>
+<label class="form-label">Ίδρυμα / Νοσοκομείο / Πανεπιστήμιο / Οργανισμός / Κυβέρνηση</label>
 <input id="adminInstitution" type="text" class="form-control" placeholder="π.χ. Γ.Ν. Ευαγγελισμός">
 </div>
 
