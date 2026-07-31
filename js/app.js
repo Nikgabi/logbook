@@ -10,7 +10,7 @@ import { saveConference, loadConferences } from "./conferences.js";
 import { saveResearch, loadResearch } from "./research.js";
 import { saveSeminar, loadSeminars } from "./seminars.js";
 import { saveFellowship, loadFellowships } from "./fellowships.js";
-import { saveAward, loadAwards } from "./awards.js";
+import { saveAward, loadAwards, editAward, cancelEditAward } from "./awards.js";
 import { saveLanguage, loadLanguages, saveHobby, loadHobbies, saveAssociation, loadAssociations } from "./xobi.js";
 import { saveBook, loadBooks, saveJournal, loadJournals } from "./books_journals.js";
 import { saveAdmin, loadAdmin } from "./admin.js";

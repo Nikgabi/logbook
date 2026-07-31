@@ -14,34 +14,31 @@ const categoryBadgeColor = {
    "Άλλο":               "bg-secondary"
 };
 
-// ─── Εικονίδιο ανά θέση ─────────────────────────────────────────────────────
 const positionIcon = {
-   "1ο": "🥇",
-   "2ο": "🥈",
-   "3ο": "🥉",
-   "Τιμητικό": "🏅",
-   "Άλλο": "🎖️"
+   "1ο": "🥇", "2ο": "🥈", "3ο": "🥉",
+   "Τιμητικό": "🏅", "Άλλο": "🎖️"
 };
 
-// ─── SAVE AWARD ──────────────────────────────────────────────────────────────
+// ─── EDIT STATE ──────────────────────────────────────────────────────────────
+// Όταν είναι null → νέα εγγραφή (add).
+// Όταν έχει id    → επεξεργασία υπάρχουσας (update).
+let editingAwardId = null;
+
+// ─── SAVE / UPDATE AWARD ─────────────────────────────────────────────────────
 export async function saveAward() {
 
    const user = getCurrentUser();
-   if (!user) {
-      alert("Πρέπει να συνδεθείτε");
-      return;
-   }
+   if (!user) { alert("Πρέπει να συνδεθείτε"); return; }
 
    const title = document.getElementById("awardTitle").value.trim();
-   if (!title) {
-      alert("Παρακαλώ συμπληρώστε τον τίτλο του βραβείου.");
-      return;
-   }
+   if (!title) { alert("Παρακαλώ συμπληρώστε τον τίτλο του βραβείου."); return; }
 
    const fileInput = document.getElementById("awardAttachment");
-   const file = fileInput.files[0] || null;
+   // Αν ο χρήστης επέλεξε νέο αρχείο, χρησιμοποίησέ το.
+   // Αλλιώς (σε edit) κράτα το παλιό attachment όπως ήταν.
+   let attachment = fileInput.files[0] || null;
 
-   await db.awards.add({
+   const data = {
       uid:         user.uid,
       title,
       category:    document.getElementById("awardCategory").value,
@@ -49,23 +46,66 @@ export async function saveAward() {
       date:        document.getElementById("awardDate").value,
       position:    document.getElementById("awardPosition").value,
       description: document.getElementById("awardDescription").value.trim(),
-      attachment:  file,
-      createdAt:   new Date().toISOString()
-   });
+   };
 
-   alert("Το βραβείο αποθηκεύτηκε!");
+   if (editingAwardId) {
+      // ── UPDATE ──────────────────────────────────────
+      if (attachment) data.attachment = attachment;
+      // Αν δεν επιλέχθηκε νέο αρχείο, ΔΕΝ αγγίζουμε το attachment (παραμένει το παλιό)
+      await db.awards.update(editingAwardId, data);
+      alert("Το βραβείο ενημερώθηκε!");
+   } else {
+      // ── ADD ─────────────────────────────────────────
+      data.attachment = attachment;
+      data.createdAt  = new Date().toISOString();
+      await db.awards.add(data);
+      alert("Το βραβείο αποθηκεύτηκε!");
+   }
+
    clearAwardForm();
    await loadAwards();
+}
+
+// ─── EDIT AWARD — γεμίζει τη φόρμα ───────────────────────────────────────────
+export async function editAward(id) {
+   const item = await db.awards.get(id);
+   if (!item) return;
+
+   editingAwardId = id;
+
+   document.getElementById("awardTitle").value       = item.title || "";
+   document.getElementById("awardOrganizer").value   = item.organizer || "";
+   document.getElementById("awardDate").value        = item.date || "";
+   document.getElementById("awardDescription").value = item.description || "";
+   document.getElementById("awardCategory").value     = item.category || "";
+   document.getElementById("awardPosition").value     = item.position || "";
+   // Σημείωση: το <input type=file> δεν μπορεί να προσυμπληρωθεί για λόγους ασφαλείας του browser.
+   // Το υπάρχον attachment παραμένει όπως είναι, εκτός αν ο χρήστης επιλέξει νέο αρχείο.
+
+   // Αλλαγή του κουμπιού σε λειτουργία "Ενημέρωση"
+   const btn = document.getElementById("saveAwardBtn");
+   btn.textContent = "Ενημέρωση Βραβείου";
+   btn.classList.remove("btn-primary");
+   btn.classList.add("btn-warning");
+
+   // Εμφάνιση κουμπιού "Άκυρο" αν δεν υπάρχει already
+   showCancelEditButton("award");
+
+   // Scroll στη φόρμα
+   document.getElementById("awardsForm").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ─── CANCEL EDIT ─────────────────────────────────────────────────────────────
+export function cancelEditAward() {
+   editingAwardId = null;
+   clearAwardForm();
 }
 
 // ─── LOAD AWARDS ─────────────────────────────────────────────────────────────
 export async function loadAwards() {
 
    const user = getCurrentUser();
-   if (!user) {
-      document.getElementById("awardsList").innerHTML = "";
-      return;
-   }
+   if (!user) { document.getElementById("awardsList").innerHTML = ""; return; }
 
    const search = document.getElementById("awardSearchInput").value.toLowerCase();
 
@@ -104,16 +144,11 @@ export async function loadAwards() {
 
                <h5 class="mb-1">${item.title}</h5>
 
-               ${item.organizer ? `
-               <div class="text-muted mb-1">${item.organizer}</div>` : ""}
+               ${item.organizer ? `<div class="text-muted mb-1">${item.organizer}</div>` : ""}
 
-               ${item.date ? `
-               <div class="mb-1">
-                  <b>Ημερομηνία:</b> ${item.date}
-               </div>` : ""}
+               ${item.date ? `<div class="mb-1"><b>Ημερομηνία:</b> ${item.date}</div>` : ""}
 
-               ${item.description ? `
-               <p class="text-muted mt-2 mb-2">${item.description}</p>` : ""}
+               ${item.description ? `<p class="text-muted mt-2 mb-2">${item.description}</p>` : ""}
 
                <div class="mt-2">
                   ${item.attachment ? `
@@ -121,6 +156,11 @@ export async function loadAwards() {
                      class="btn btn-sm btn-success me-2">
                      Βεβαίωση
                   </button>` : ""}
+
+                  <button onclick="editAward(${item.id})"
+                     class="btn btn-sm btn-outline-primary me-2">
+                     ✏️ Επεξεργασία
+                  </button>
 
                   <button onclick="deleteAward(${item.id})"
                      class="btn btn-sm btn-danger">
@@ -144,37 +184,71 @@ export async function loadAwards() {
 export async function deleteAward(id) {
    if (!confirm("Να διαγραφεί το βραβείο;")) return;
    await db.awards.delete(id);
+   // Αν διαγράφεις την εγγραφή που επεξεργαζόσουν, βγάλε από edit mode
+   if (editingAwardId === id) cancelEditAward();
    await loadAwards();
 }
 
 // ─── OPEN ATTACHMENT ─────────────────────────────────────────────────────────
 export async function openAwardAttachment(id) {
    const item = await db.awards.get(id);
-   if (!item || !item.attachment) {
-      alert("Δεν υπάρχει αρχείο");
-      return;
-   }
+   if (!item || !item.attachment) { alert("Δεν υπάρχει αρχείο"); return; }
    window.open(URL.createObjectURL(item.attachment));
 }
 
-// ─── CLEAR FORM ──────────────────────────────────────────────────────────────
+// ─── CLEAR FORM (επαναφέρει και το κουμπί στο "Αποθήκευση") ─────────────────
 function clearAwardForm() {
    ["awardTitle","awardOrganizer","awardDescription"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = "";
    });
-
    ["awardCategory","awardPosition"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.selectedIndex = 0;
    });
-
    ["awardDate","awardAttachment"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = "";
    });
+
+   editingAwardId = null;
+
+   const btn = document.getElementById("saveAwardBtn");
+   btn.textContent = "Αποθήκευση";
+   btn.classList.remove("btn-warning");
+   btn.classList.add("btn-primary");
+
+   hideCancelEditButton("award");
 }
+
+// ─── ΒΟΗΘΗΤΙΚΕΣ: εμφάνιση/απόκρυψη κουμπιού "Άκυρο Επεξεργασίας" ────────────
+// Δημιουργείται δυναμικά δίπλα στο save button, ώστε να μη χρειάζεται
+// αλλαγή στο HTML — λειτουργεί άμεσα.
+function showCancelEditButton(prefix) {
+   const saveBtn = document.getElementById(`save${capitalize(prefix)}Btn`);
+   if (!saveBtn) return;
+   let cancelBtn = document.getElementById(`cancelEdit${capitalize(prefix)}Btn`);
+   if (!cancelBtn) {
+      cancelBtn = document.createElement("button");
+      cancelBtn.id = `cancelEdit${capitalize(prefix)}Btn`;
+      cancelBtn.type = "button";
+      cancelBtn.className = "btn btn-outline-secondary mt-2 w-100";
+      cancelBtn.textContent = "Άκυρο Επεξεργασίας";
+      cancelBtn.onclick = () => window[`cancelEdit${capitalize(prefix)}`]();
+      saveBtn.insertAdjacentElement("afterend", cancelBtn);
+   }
+   cancelBtn.style.display = "block";
+}
+
+function hideCancelEditButton(prefix) {
+   const cancelBtn = document.getElementById(`cancelEdit${capitalize(prefix)}Btn`);
+   if (cancelBtn) cancelBtn.style.display = "none";
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 // ─── Expose στο window για onclick ───────────────────────────────────────────
 window.deleteAward          = deleteAward;
 window.openAwardAttachment  = openAwardAttachment;
+window.editAward            = editAward;
+window.cancelEditAward      = cancelEditAward;

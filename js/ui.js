@@ -88,7 +88,15 @@ export function showUser(user){
 		 
       credentialsList.innerHTML = "";
 	  publicationsList.innerHTML = "";
-	  jobsList.innerHTML = "";  	
+	  jobsList.innerHTML = "";  
+	  awardsList.innerHTML = "";
+	  booksList.innerHTML = "";
+	  journalsList.innerHTML = "";
+	  seminarsList.innerHTML = "";
+	  conferencesList.innerHTML = "";
+	  fellowshipsList.innerHTML = "";
+	  adminList.innerHTML = "";
+	  
    }
 
 }

@@ -111,11 +111,14 @@ export async function saveHobby() {
 
    const category = document.getElementById("hobbyCategory").value;
    if (!category) { alert("Παρακαλώ επιλέξτε κατηγορία."); return; }
+   
+   const file = document.getElementById("HobbiesAttachment").files[0] || null;
 
    await db.hobbies.add({
       uid:         user.uid,
       category,
       description: document.getElementById("hobbyDescription").value.trim(),
+	  attachment: file,
       createdAt:   new Date().toISOString()
    });
 
@@ -143,8 +146,13 @@ export async function loadHobbies() {
                </span>
                ${item.description ? `<p class="mb-1 mt-1">${item.description}</p>` : ""}
             </div>
-            <button onclick="deleteHobby(${item.id})"
+			<div>
+               ${item.attachment ? `
+               <button onclick="openHobbiesAttachment(${item.id})"
+                  class="btn btn-sm btn-success me-2">Πιστοποίηση</button>` : ""}
+               <button onclick="deleteHobby(${item.id})"
                class="btn btn-sm btn-danger">Διαγραφή</button>
+			 </div>
          </div>
       </div>`;
    }
@@ -159,13 +167,20 @@ export async function deleteHobby(id) {
    await loadHobbies();
 }
 
+export async function openHobbiesAttachment(id) {
+   const item = await db.hobbies.get(id);
+   if (!item?.attachment) { alert("Δεν υπάρχει αρχείο"); return; }
+   window.open(URL.createObjectURL(item.attachment));
+}
+
 function clearHobbyForm() {
    document.getElementById("hobbyCategory").selectedIndex = 0;
    document.getElementById("hobbyDescription").value = "";
+   document.getElementById("HobbiesAttachment").value = "";
 }
 
 window.deleteHobby = deleteHobby;
-
+window.openHobbiesAttachment = openHobbiesAttachment;
 
 // ════════════════════════════════════════════════════════
 // ΣΥΛΛΟΓΟΙ - ΕΤΑΙΡΕΙΕΣ
